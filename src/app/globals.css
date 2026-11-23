@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Netlink Solutions — design tokens
+   Couleurs du logo : marine (texte, sections sombres), bleu (accents,
+   liens), bleu ciel (accents sur fond sombre). Fond clair légèrement froid.
+   Typographie : Schibsted Grotesk (texte), Instrument Serif italique
+   (accents), JetBrains Mono (données).
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-paper: #f5f7fa;
+  --color-paper-2: #e9eef5;
+  --color-ink: #081a3d;
+  --color-navy: #022152;
+  --color-night: #04122e;
+  --color-mute: #5d6a84;
+  --color-brand: #0090f4;
+  --color-sky: #08a6fb;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --breakpoint-3xl: 112rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 1.5px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ─── Mise en page ───────────────────────────────────────────── */
+
+@utility shell {
+  width: 100%;
+  max-width: 1680px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* Repère de section : petit, en casse normale, jamais crié. */
+@utility label {
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  font-weight: 500;
+}
+
+/* Données techniques (heures, domaines, années) : chasse fixe. */
+@utility meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility display {
+  font-size: clamp(3.1rem, 9.2vw, 10.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+
+/* Titre des en-têtes de page : grand, mais sans écraser l'écran. */
+@utility page-title {
+  font-size: clamp(2.7rem, 6.4vw, 6.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+
+@utility title-xl {
+  font-size: clamp(2.6rem, 6.4vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+
+@utility title-lg {
+  font-size: clamp(2rem, 4.2vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+@utility title-md {
+  font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+@utility lead {
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+}
+
+/* Accent éditorial en italique serif, toujours intégré dans un titre. */
+@utility accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--accent-color, var(--color-brand));
+}
+
+/* Sur fond marine, les accents passent au bleu ciel. */
+.bg-ink,
+.bg-night {
+  --accent-color: var(--color-sky);
+}
+
+@utility hairline {
+  border-color: color-mix(in oklab, currentColor 14%, transparent);
+}
+
+/* ─── Liens texte (pas de boutons colorés) ──────────────────── */
+
+@utility link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 420ms var(--ease-out);
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-size: 100% 1px;
+    }
+  }
+}
+
+/* ─── Apparitions au scroll ─────────────────────────────────────
+   Une seule entrée par conteneur (cf. skill « choreograph »).
+   Le contenu reste visible sans JavaScript : la classe .js est
+   posée par un script inline dans <head>. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+
+.js [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.js [data-reveal="fade"] {
+  transform: none;
+}
+
+/* Titres révélés ligne par ligne au chargement de la page. */
+.line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.line-mask > span {
+  display: block;
+  animation: line-rise 950ms var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 108%, 0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 700ms var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    transform: none;
+    transition: opacity 400ms ease;
+  }
+
+  .line-mask > span {
+    animation: fade-in 400ms ease both;
+  }
+}
+
+/* Changement d'état d'un libellé (bouton d'envoi). */
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
