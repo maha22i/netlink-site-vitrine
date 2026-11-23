@@ -243,3 +243,100 @@
     filter: blur(3px);
   }
 }
+
+/* ─── Chatbot (Léa) ──────────────────────────────────────────────
+   Le panneau part du coin du lanceur. L'entrée est un peu plus lente
+   que la sortie (on ne fait pas attendre quelqu'un qui ferme), et
+   `visibility` n'est retardée qu'à la fermeture pour que le panneau
+   reste inerte une fois masqué. Toujours monté : une ouverture ou une
+   fermeture en cours peut être inversée sans à-coup. */
+
+.chat-panel {
+  transform-origin: bottom right;
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  visibility: hidden;
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    visibility 0s linear 150ms;
+}
+
+.chat-panel[data-open="true"] {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 280ms var(--ease-out),
+    visibility 0s;
+}
+
+.chat-launcher {
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 180ms var(--ease-out),
+    visibility 0s;
+}
+
+.chat-launcher[data-hidden="true"] {
+  opacity: 0;
+  transform: scale(0.92);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 120ms var(--ease-out),
+    transform 120ms var(--ease-out),
+    visibility 0s linear 120ms;
+}
+
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.chat-in {
+  animation: chat-in 280ms var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Trois points « Léa écrit… », décalés pour une vague douce. */
+@keyframes chat-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.28;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.chat-dot {
+  animation: chat-dot 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-panel,
+  .chat-panel[data-open="true"] {
+    transform: none;
+  }
+
+  .chat-launcher[data-hidden="true"] {
+    transform: none;
+  }
+
+  .chat-in {
+    animation-name: fade-in;
+    animation-duration: 300ms;
+  }
+
+  .chat-dot {
+    animation: none;
+    opacity: 0.7;
+  }
+}

@@ -33,10 +33,17 @@ export const site = {
     },
   },
 
-  /** Chatbot Orkiva (agent « Léa »). L’identifiant est public, ce n’est pas un secret. */
+  /**
+   * Chatbot Orkiva (agent « Léa »), servi par /api/chat : le jeton API reste côté serveur
+   * (variable ORKIVA_API_TOKEN, jamais dans le navigateur). L’identifiant de l’agent n’est pas un secret.
+   */
   chatbot: {
-    script: "https://app.getorkiva.com/widget.js",
     agentId: "agt_6mdqep0gISFQGjB7",
+    name: "Léa",
+    role: "Assistante IA de Netlink",
+    welcome:
+      "Bonjour, je suis Léa. Posez-moi vos questions sur nos services : intelligence artificielle, sites et applications, réseau, cloud ou matériel.",
+    suggestions: ["Quels sont vos services ?", "Je souhaite un devis", "Comment vous joindre ?"],
   },
 
   locations: [
