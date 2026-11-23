@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { mono, sans, serif } from "@/lib/fonts";
 import { siteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -7,6 +8,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { CursorLabel } from "@/components/ui/CursorLabel";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -85,6 +87,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="contenu">{children}</main>
         <Footer />
+        <WhatsAppButton />
+        <Script src={site.chatbot.script} data-agent={site.chatbot.agentId} strategy="lazyOnload" />
         <RevealObserver />
         <CursorLabel />
       </body>

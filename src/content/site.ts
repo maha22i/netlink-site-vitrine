@@ -26,6 +26,17 @@ export const site = {
       { label: "France", phone: "+33 7 75 84 09 62", tel: "tel:+33775840962", whatsapp: "https://wa.me/33775840962" },
     ],
     hours: "Du lundi au vendredi, 9 h – 19 h",
+    /** Bouton WhatsApp flottant affiché sur toutes les pages. Numéro au format international, sans « + ». */
+    whatsappFloat: {
+      number: "33775840962",
+      message: "Bonjour Netlink Solutions, je vous contacte depuis votre site.",
+    },
+  },
+
+  /** Chatbot Orkiva (agent « Léa »). L’identifiant est public, ce n’est pas un secret. */
+  chatbot: {
+    script: "https://app.getorkiva.com/widget.js",
+    agentId: "agt_6mdqep0gISFQGjB7",
   },
 
   locations: [
