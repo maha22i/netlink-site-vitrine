@@ -1,0 +1,37 @@
+[Unit]
+Description=Netlink Solutions - site vitrine (Next.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=netlink
+Group=netlink
+WorkingDirectory=/opt/netlink-solutions/current
+Environment=NODE_ENV=production
+# Le fichier .env.production.local (clés EmailJS, URL publique) est lu par Next depuis le dossier de la release.
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3080
+Restart=always
+RestartSec=3
+TimeoutStopSec=20
+
+# Garde-fous : le site ne peut pas affamer les autres projets du serveur.
+MemoryHigh=700M
+MemoryMax=1G
+TasksMax=256
+LimitNOFILE=65535
+
+# Durcissement
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target
