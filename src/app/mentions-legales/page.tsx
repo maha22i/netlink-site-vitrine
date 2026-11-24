@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { CookieSettingsButton } from "@/components/analytics/CookieSettingsButton";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-const sections: { title: string; body: React.ReactNode[] }[] = [
+const sections: { id?: string; title: string; body: React.ReactNode[] }[] = [
   {
     title: "Objet",
     body: [
@@ -65,9 +66,12 @@ const sections: { title: string; body: React.ReactNode[] }[] = [
     ],
   },
   {
+    id: "cookies",
     title: "Cookies",
     body: [
-      "Le site n’utilise ni cookie publicitaire ni outil de suivi tiers. Seuls des éléments techniques strictement nécessaires à son fonctionnement peuvent être déposés. Les polices de caractères sont hébergées sur le site lui-même : aucune donnée de navigation n’est transmise à un service externe.",
+      "Le site n’utilise aucun cookie publicitaire. Seuls des éléments techniques strictement nécessaires à son fonctionnement sont déposés d’office. Les polices de caractères sont hébergées sur le site lui-même.",
+      "Avec votre accord uniquement, le site utilise Google Analytics (via Google Tag Manager) pour mesurer l’audience de manière statistique et améliorer son contenu. Sans accord, aucune donnée de mesure n’est collectée. Votre choix est conservé dans votre navigateur et peut être modifié à tout moment.",
+      <CookieSettingsButton key="settings" className="link-line text-brand" />,
     ],
   },
   {
@@ -88,7 +92,7 @@ export default function MentionsPage() {
       <PageHeader eyebrow="Informations légales" lines={["Mentions légales"]} />
       <section className="shell pt-4 pb-28 md:pb-36">
         {sections.map((s) => (
-          <div key={s.title} className="grid gap-4 border-t hairline py-9 md:grid-cols-12 md:gap-6">
+          <div key={s.title} id={s.id} className="grid gap-4 border-t hairline py-9 md:grid-cols-12 md:gap-6">
             <h2 className="text-[17px] font-medium tracking-[-0.02em] md:col-span-3">{s.title}</h2>
             <div className="space-y-4 text-[16px] leading-relaxed text-ink/70 md:col-span-8 md:col-start-5">
               {s.body.map((p, i) => (

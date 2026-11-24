@@ -9,6 +9,8 @@ import { RevealObserver } from "@/components/ui/RevealObserver";
 import { CursorLabel } from "@/components/ui/CursorLabel";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { Chat } from "@/components/chat/Chat";
+import { Analytics } from "@/components/analytics/Analytics";
+import { CookieBanner } from "@/components/analytics/CookieBanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -89,6 +91,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <WhatsAppButton />
         <Chat />
+        <Analytics />
+        <CookieBanner />
         <RevealObserver />
         <CursorLabel />
       </body>

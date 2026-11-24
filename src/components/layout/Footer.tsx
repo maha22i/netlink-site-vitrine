@@ -2,6 +2,7 @@ import Link from "next/link";
 import { nav, site } from "@/content/site";
 import { LocalTime } from "@/components/ui/LocalTime";
 import { Logo } from "@/components/ui/Logo";
+import { CookieSettingsButton } from "@/components/analytics/CookieSettingsButton";
 
 /** Pied de page sobre : l’essentiel, une signature, rien de plus. */
 export function Footer() {
@@ -62,6 +63,7 @@ export function Footer() {
             <Link href="/mentions-legales" className="link-line hover:text-paper">
               Mentions légales
             </Link>
+            <CookieSettingsButton className="link-line hover:text-paper" />
             {site.social.map((s) => (
               <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" className="link-line hover:text-paper">
                 {s.label}
